@@ -1,7 +1,7 @@
 import pygame
 import os
 #창의 크기
-SCREEN_WIDTH = 800 #가로
+SCREEN_WIDTH = 800 #가로 
 SCREEN_HEIGHT = 600#세로
 
 WHITE = (255,255,255)
