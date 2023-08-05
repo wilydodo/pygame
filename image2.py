@@ -24,7 +24,9 @@ clock = pygame.time.Clock()
 current_path = os.path.dirname(__file__)
 assets_path = os.path.join(current_path, "assets")
 background_image = pygame.image.load(os.path.join(assets_path,"terrain.png"))
-
+mushroom1 = pygame.image.load(os.path.join(assets_path,"mushroom1.png"))
+mushroom2 = pygame.image.load(os.path.join(assets_path,"mushroom2.png"))
+mushroom3 = pygame.image.load(os.path.join(assets_path,"mushroom3.png"))
 #게임종료여부
 done = False
 
@@ -38,8 +40,13 @@ while not done:
     #화면삭제구간
     #스크린 채우기
     screen.fill(land)
-    #화면 그리기 구간
+    #배경 그리기 구간
     screen.blit(background_image,background_image.get_rect())
+    #버섯 그리기 구간
+    screen.blit(mushroom1,[100,80])
+    screen.blit(mushroom2,[300,100])
+    screen.blit(mushroom3,[450,140])
+
     #화면 없데이트
     pygame.display.flip()
     clock.tick(60)#60틱
