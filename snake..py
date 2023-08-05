@@ -1,5 +1,5 @@
 import pygame
-import random
+from random import choice,randint
 from time import sleep
 #screen size
 SCREEN_WIDTH = 800
@@ -25,7 +25,7 @@ class Snake():
     def create(self):
         self.length = 2
         self.positions = [(int(SCREEN_WIDTH/2),int(SCREEN_HEIGHT/2))]
-        self.direction = random.choice([UP,DOWN,LEFT,RIGHT])
+        self.direction = choice([UP,DOWN,LEFT,RIGHT])
     def control(self,xy):
         if (xy[0]*-1, xy[1]*-1) == self.direction:
             return
@@ -59,8 +59,8 @@ class Feed():
         self.color = ORANGE
         self.create()
     def create(self):
-        x = random(0, GRID_WIDTH-1)
-        y = random(0, GRID_HEIGHT-1)
+        x = randint(0, GRID_WIDTH-1)
+        y = randint(0, GRID_HEIGHT-1)
         self.position = x * GRID_SIZE, y * GRID_SIZE
     def draw(self,screen):
         rect = pygame.Rect((self.position[0],self.position[1]),(GRID_SIZE,GRID_SIZE))
@@ -88,7 +88,7 @@ class Game():
     def run_logic(self):
         self.snake.move()
         self.check_eat(self.snake,self.feed)
-        self.speed = (10 + self.snake.length) / 2
+        self.speed = (20 + self.snake.length) / 2
     def check_eat(snake,feed):
         if Snake.positions[0] == feed.position:
             snake.eat()
@@ -111,16 +111,18 @@ def main():
     pygame.init()
     pygame.display.set_caption("Snake Game")
     screen = pygame.display.set_mode((SCREEN_HEIGHT,SCREEN_HEIGHT))
-    clock = pygame.time.Clock()
+    time = pygame.time.Clock()
     game=Game()
-
     done = False
 
     while not done:
-        done = Game.process_event()
+        done = game.process_event()
         game.run_logic()
         game.displat_frame(screen)
         pygame.display.flip()
-        clock.tick(game.speed)
+        time.tick(game.speed)
 
     pygame.quit()
+
+if __name__ == "__main__":
+    main()
