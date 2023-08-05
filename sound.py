@@ -33,4 +33,4 @@ while not GG:
     screen.blit(background_image,[0,0])
     pygame.display.flip()
     clock.tick(60)
-pygame.quit()
+pygame.quit()#
