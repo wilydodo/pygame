@@ -1,6 +1,8 @@
 import pygame
 from random import choice,randint
 from time import sleep
+import random
+
 #screen size
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -50,18 +52,19 @@ class Snake():
         self.length+=1
     def draw(self,screen):
         for p in self.positions:
-            rect = pygame.rect((p[0],p[2],(GRID_SIZE,GRID_SIZE)))
-            pygame.rect(screen,GRAY,rect)
+            rect = pygame.Rect((p[0],p[1]),(GRID_SIZE,GRID_SIZE))
+            pygame.draw.rect(screen,GRAY,rect)
 
 class Feed():
     def __init__(self):
-        self.position = (0,)
+        self.position = (0,0)
         self.color = ORANGE
         self.create()
     def create(self):
-        x = randint(0, GRID_WIDTH-1)
-        y = randint(0, GRID_HEIGHT-1)
+        x = random.randint(0, GRID_WIDTH-1)
+        y = random.randint(0, GRID_HEIGHT-1)
         self.position = x * GRID_SIZE, y * GRID_SIZE
+        print(self.position)
     def draw(self,screen):
         rect = pygame.Rect((self.position[0],self.position[1]),(GRID_SIZE,GRID_SIZE))
         pygame.draw.rect(screen,self.color,rect)
@@ -89,8 +92,8 @@ class Game():
         self.snake.move()
         self.check_eat(self.snake,self.feed)
         self.speed = (20 + self.snake.length) / 2
-    def check_eat(snake,feed):
-        if Snake.positions[0] == feed.position:
+    def check_eat(self, snake,feed):
+        if snake.positions[0] == feed.position:
             snake.eat()
             feed.create()
     def draw_info(self,length,speed,screen):
@@ -100,7 +103,7 @@ class Game():
         text_rect = text_obj.get_rect()
         text_rect = text_obj.get_rect()
         screen.blit(text_obj,text_rect)
-    def displat_frame(self,screen):
+    def display_frame(self,screen):
         screen.fill(WHITE)
         self.draw_info(self.snake.length,self.speed,screen)
         self.snake.draw(screen)
@@ -110,7 +113,7 @@ class Game():
 def main():
     pygame.init()
     pygame.display.set_caption("Snake Game")
-    screen = pygame.display.set_mode((SCREEN_HEIGHT,SCREEN_HEIGHT))
+    screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
     time = pygame.time.Clock()
     game=Game()
     done = False
@@ -118,7 +121,7 @@ def main():
     while not done:
         done = game.process_event()
         game.run_logic()
-        game.displat_frame(screen)
+        game.display_frame(screen)
         pygame.display.flip()
         time.tick(game.speed)
 
