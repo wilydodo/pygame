@@ -14,6 +14,7 @@ GRID_HEIGHT =SCREEN_HEIGHT/GRID_SIZE
 BLACK = (0,0,0,)
 WHITE = (255,255,255)
 ORANGE = (250,150,0)
+RED = (255,0,0)
 GRAY = (100, 100, 100)
 #move sight
 UP = (0,-1)
@@ -51,9 +52,11 @@ class Snake():
     def eat(self):
         self.length+=1
     def draw(self,screen):
-        for p in self.positions:
+        red,green,blue = 50/(self.length-1),150,150/(self.length-1)
+        for i,p in enumerate(self.positions):
+            color = (100+red*i,green,blue*i)
             rect = pygame.Rect((p[0],p[1]),(GRID_SIZE,GRID_SIZE))
-            pygame.draw.rect(screen,GRAY,rect)
+            pygame.draw.rect(screen,color,rect)
 
 class Feed():
     def __init__(self):
@@ -85,6 +88,14 @@ class Game():
                 elif event.key == pygame.K_LEFT:
                     self.snake.control(LEFT)
                 elif event.key == pygame.K_RIGHT:
+                    self.snake.control(RIGHT)
+                elif event.key == pygame.K_w:
+                    self.snake.control(UP)
+                elif event.key == pygame.K_s:
+                    self.snake.control(DOWN)
+                elif event.key == pygame.K_a:
+                    self.snake.control(LEFT)
+                elif event.key == pygame.K_d:
                     self.snake.control(RIGHT)
         return False
     def run_logic(self):
