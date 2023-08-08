@@ -40,6 +40,7 @@ class Ball():
         self.dy = 5
     def draw(self,screen):
         pygame.draw.rect(screen,ORANGE,self.rect,0)
+        pygame.draw.circle(screen,ORANGE,self.rect.center,6,0)
 
 class Player():
     def __init__(self,ping_sound):
