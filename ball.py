@@ -10,8 +10,8 @@ def ad1(num=int,add=int):
         return num-add
 
 #창의 크기
-SCREEN_WIDTH = 800 #가로
-SCREEN_HEIGHT = 600#세로
+SCREEN_WIDTH = 600 #가로
+SCREEN_HEIGHT = 500#세로
 
 #색 정의
 BLACK = (0, 0, 0)
@@ -53,10 +53,10 @@ while not done:
     ball_y += ball_dy
     if ball_x <= ball_size or ball_x >= SCREEN_WIDTH-ball_size:
         ball_dx*=-1
-        ball_dx = ad1(ball_dx,1)
+#        ball_dx = ad1(ball_dx,1)
     if ball_y <= ball_size or ball_y >= SCREEN_HEIGHT-ball_size:
         ball_dy*=-1
-        ball_dy = ad1(ball_dy,1)
+#        ball_dy = ad1(ball_dy,1)
 
     #화면삭제구간
     #스크린 채우기

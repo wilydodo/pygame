@@ -70,7 +70,7 @@ class Feed():
     def draw(self,screen):
         rect = pygame.Rect((self.position[0],self.position[1]),(GRID_SIZE,GRID_SIZE))
         pygame.draw.rect(screen,self.color,rect)
-
+            
 class Game():
     def __init__(self):
         self.snake = Snake()
