@@ -4,18 +4,31 @@ from time import sleep
 import random
 
 #screen size
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH = 500
+SCREEN_HEIGHT = 500
 #grid size
 GRID_SIZE = 25
 GRID_WIDTH = SCREEN_WIDTH/GRID_SIZE
 GRID_HEIGHT =SCREEN_HEIGHT/GRID_SIZE
 #color
 BLACK = (0,0,0,)
-WHITE = (200,200,200)
+WHITE = (220,220,220)
 ORANGE = (250,150,0)
-RED = (1,18,98)
+RED = (200,20,20)
 GRAY = (100, 100, 100)
+PURPLE = (100,100,200)
+BLUE = (177,235,255)
+GREEN = (153,255,69)
+YELLOW = (255,242,62)
+SC = WHITE
+color = (YELLOW,GREEN,BLUE,PURPLE,WHITE)
+
+def select(original,color):
+    selected = random.choice(color)
+    while original==selected:
+        selected = random.choice(color)
+    return selected
+
 #move sight
 UP = (0,-1)
 DOWN = (0,1)
@@ -92,7 +105,16 @@ class Game():
     def __init__(self):
         self.snake = Snake()
         self.feed = Feed()
-        self.boom = Boom()
+        self.boom1 = Boom()
+        self.boom2 = Boom()
+        self.boom3 = Boom()
+        self.boom4 = Boom()
+        self.boom5 = Boom()
+        self.boom6 = Boom()
+        self.boom7 = Boom()
+        self.boom8 = Boom()
+        self.boom9 = Boom()
+        self.boom0 = Boom()
         self.speed = 5
     def process_event(self):
         for event in pygame.event.get():
@@ -118,13 +140,36 @@ class Game():
         return False
     def run_logic(self):
         self.snake.move()
-        self.check_eat(self.snake,self.feed)
-        self.check_boom(self.snake,self.boom)
-        self.speed = (20 + self.snake.length) / 2
-    def check_eat(self, snake,feed):
+        self.check_eat(self.snake,self.feed,self.boom1,self.boom2,self.boom3,self.boom4,self.boom5,self.boom6,self.boom7,self.boom8,self.boom9,self.boom0)
+        self.check_boom(self.snake,self.boom1)
+        self.check_boom(self.snake,self.boom2)
+        self.check_boom(self.snake,self.boom3)
+        self.check_boom(self.snake,self.boom4)
+        self.check_boom(self.snake,self.boom5)
+        self.check_boom(self.snake,self.boom6)
+        self.check_boom(self.snake,self.boom7)
+        self.check_boom(self.snake,self.boom8)
+        self.check_boom(self.snake,self.boom9)
+        self.check_boom(self.snake,self.boom0)
+        self.speed = (15 + self.snake.length) / 2
+    def check_eat(self, snake,feed,boom1,boom2,boom3,boom4,boom5,boom6,boom7,boom8,boom9,boom0):
+        global SC
+        global color
         if snake.positions[0] == feed.position:
+            SC = select(SC,color)
             snake.eat()
+            SC=random.choice(color)
             feed.create()
+            boom1.create()
+            boom2.create()
+            boom3.create()
+            boom4.create()
+            boom5.create()
+            boom6.create()
+            boom7.create()
+            boom8.create()
+            boom9.create()
+            boom0.create()
     def check_boom(self,snake,boom):
         if snake.positions[0] == boom.position:
             snake.boom()
@@ -137,11 +182,21 @@ class Game():
         text_rect = text_obj.get_rect()
         screen.blit(text_obj,text_rect)
     def display_frame(self,screen):
-        screen.fill(WHITE)
+
+        screen.fill(SC)
         self.draw_info(self.snake.length,self.speed,screen)
         self.snake.draw(screen)
+        self.boom1.draw(screen)
+        self.boom2.draw(screen)
+        self.boom3.draw(screen)
+        self.boom4.draw(screen)
+        self.boom5.draw(screen)
+        self.boom6.draw(screen)
+        self.boom7.draw(screen)
+        self.boom8.draw(screen)
+        self.boom9.draw(screen)
+        self.boom0.draw(screen)
         self.feed.draw(screen)
-        self.boom.draw(screen)
         screen.blit(screen,(0,0))
 
 def main():
@@ -163,5 +218,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-#gg!
