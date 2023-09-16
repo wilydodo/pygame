@@ -41,7 +41,7 @@ class Snake():
     def create(self):
         self.length = 2
         self.positions = [(int(SCREEN_WIDTH/2),int(SCREEN_HEIGHT/2))]
-        self.direction = choice([UP,DOWN,LEFT,RIGHT])
+        self.direction = random.choice([UP,DOWN,LEFT,RIGHT])
     def control(self,xy):
         if (xy[0]*-1, xy[1]*-1) == self.direction:
             return
@@ -181,7 +181,6 @@ class Game():
         text_rect = text_obj.get_rect()
         screen.blit(text_obj,text_rect)
     def display_frame(self,screen):
-
         screen.fill(SC)
         self.draw_info(self.snake.length,self.speed,screen)
         self.snake.draw(screen)
