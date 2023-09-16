@@ -158,7 +158,6 @@ class Game():
         if snake.positions[0] == feed.position:
             SC = select(SC,color)
             snake.eat()
-            SC=random.choice(color)
             feed.create()
             boom1.create()
             boom2.create()
