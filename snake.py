@@ -7,14 +7,14 @@ import random
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 #grid size
-GRID_SIZE = 20
+GRID_SIZE = 25
 GRID_WIDTH = SCREEN_WIDTH/GRID_SIZE
 GRID_HEIGHT =SCREEN_HEIGHT/GRID_SIZE
 #color
 BLACK = (0,0,0,)
-WHITE = (255,255,255)
+WHITE = (200,200,200)
 ORANGE = (250,150,0)
-RED = (255,0,0)
+RED = (1,18,98)
 GRAY = (100, 100, 100)
 #move sight
 UP = (0,-1)
@@ -53,6 +53,7 @@ class Snake():
         self.length+=1
     def boom(self):
         sleep(1)
+        self.length = 5
         self.create()
     def draw(self,screen):
         red,green,blue = 50/(self.length-1),150,150/(self.length-1)
@@ -73,6 +74,7 @@ class Feed():
     def draw(self,screen):
         rect = pygame.Rect((self.position[0],self.position[1]),(GRID_SIZE,GRID_SIZE))
         pygame.draw.rect(screen,self.color,rect)
+
 class Boom():
     def __init__(self):
         self.position = (0,0)
@@ -85,12 +87,12 @@ class Boom():
     def draw(self,screen):
         rect = pygame.Rect((self.position[0],self.position[1]),(GRID_SIZE,GRID_SIZE))
         pygame.draw.rect(screen,self.color,rect)
-            
+
 class Game():
     def __init__(self):
         self.snake = Snake()
         self.feed = Feed()
-        boom = Boom()
+        self.boom = Boom()
         self.speed = 5
     def process_event(self):
         for event in pygame.event.get():
@@ -117,6 +119,7 @@ class Game():
     def run_logic(self):
         self.snake.move()
         self.check_eat(self.snake,self.feed)
+        self.check_boom(self.snake,self.boom)
         self.speed = (20 + self.snake.length) / 2
     def check_eat(self, snake,feed):
         if snake.positions[0] == feed.position:
@@ -127,7 +130,7 @@ class Game():
             snake.boom()
             boom.create()
     def draw_info(self,length,speed,screen):
-        info = "length"+str(length)+"       "+"speed: "+str(round(speed,2))
+        info = "length: "+str(length)+"       "+"speed: "+str(round(speed,2))
         font = pygame.font.SysFont('FixedSys',30,False,False)
         text_obj = font.render(info,True,BLACK)
         text_rect = text_obj.get_rect()
@@ -138,6 +141,7 @@ class Game():
         self.draw_info(self.snake.length,self.speed,screen)
         self.snake.draw(screen)
         self.feed.draw(screen)
+        self.boom.draw(screen)
         screen.blit(screen,(0,0))
 
 def main():
